@@ -1,3 +1,6 @@
+# json db config
+
+
 import json
 from pathlib import Path
 from typing import List
@@ -29,10 +32,3 @@ def save_tasks(users: List[Task], save_location):
             user_dicts.append(user_dict)
 
         json.dump(user_dicts, f, indent=2)  # indent=2 makes files easier to read
-
-
-def get_latest_id(file_location):
-    tasks = read_tasks(file_location)
-    latest_id = tasks[-1].id
-
-    return latest_id
