@@ -46,3 +46,31 @@ def get_task(id: int):
     """Get a task by its id"""
 
     return TASKS[id]
+
+
+@router.delete("/api/tasks/delete/{id}", response_model=Task)
+def delete_task(id: int):
+    """Delete a task by its id"""
+
+    TASKS[id].deleted = True
+    save_tasks(TASKS, TASKS_FILE)
+
+    return TASKS[id]
+
+
+@router.put("/api/tasks/edit/{id}", response_model=list)
+def edit_task(id: int, task: Task):
+    """Edit a task. Delete line to not modify"""
+
+    old_task = TASKS[id]
+
+    TASKS[id].title = task.title
+    TASKS[id].done = task.done
+    TASKS[id].kudos = task.kudos
+    TASKS[id].description = task.description
+    TASKS[id].deleted = task.deleted
+    TASKS[id].tags = task.tags
+
+    save_tasks(TASKS, TASKS_FILE)
+
+    return ["changed task:", old_task, "to:", TASKS[id]]
