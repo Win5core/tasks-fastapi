@@ -15,6 +15,7 @@ class Task(BaseModel):
         default_factory=int((datetime.now().timestamp())),
         description="Only UNIX timestamp",
     )  # this will automatically make "created at". uses timestamp to reduce value size
+    deleted: Optional[bool] = False
     tags: Optional[list[str]] = list(list(""))
 
 
